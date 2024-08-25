@@ -2,7 +2,6 @@ const { createApp, ref } = Vue;
 
 const app = createApp({
     setup() {
-        // Estado inicial con frases y variables de edición
         const frases = ref([
             { frase: "Los programas deben escribirse para que las personas los lean, y solo incidentalmente para que las máquinas los ejecuten.", autor: 'Harold Abelson' },
             { frase: "Cualquier tonto puede escribir un código que una computadora pueda entender. Los buenos programadores escriben códigos que los humanos puedan entender.", autor: 'Martin Fowler' },
@@ -11,10 +10,7 @@ const app = createApp({
             { frase: "Primero, resuelve el problema. Luego escribe el código.", autor: 'John Johnson' }
         ]);
 
-        // Variable para controlar la fila que se está editando
         const editIndex = ref(null);
-        const fraseOriginal = ref('');
-        const autorOriginal = ref('');
 
         // Variables para nueva frase y autor
         const nuevaFrase = ref('');
@@ -23,21 +19,10 @@ const app = createApp({
         // Función para comenzar la edición de una frase
         const iniciarEdicion = (index) => {
             editIndex.value = index;
-            // Guardar los valores originales
-            fraseOriginal.value = frases.value[index].frase;
-            autorOriginal.value = frases.value[index].autor;
         };
 
         // Función para guardar la edición de una frase
         const guardarEdicion = () => {
-            editIndex.value = null;
-        };
-
-        // Función para cancelar la edición de una frase
-        const cancelarEdicion = (index) => {
-            // Restaurar los valores originales
-            frases.value[index].frase = fraseOriginal.value;
-            frases.value[index].autor = autorOriginal.value;
             editIndex.value = null;
         };
 
@@ -55,7 +40,7 @@ const app = createApp({
                     frase: nuevaFrase.value,
                     autor: nuevoAutor.value
                 });
-                // Limpiar los campos 
+                // Limpiar los campos
                 nuevaFrase.value = '';
                 nuevoAutor.value = '';
             } else {
@@ -70,7 +55,6 @@ const app = createApp({
             nuevoAutor,
             iniciarEdicion,
             guardarEdicion,
-            cancelarEdicion,
             eliminarFrase,
             agregarFrase
         };
