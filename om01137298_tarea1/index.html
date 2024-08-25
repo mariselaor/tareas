@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frases</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="myapp" class="container mt-4">
+        <h1 class="mb-4">Lista de Frases</h1>
+
+        <!-- Formulario para agregar -->
+        <div class="mb-4">
+            <div class="row g-2">
+                <div class="col-md-5">
+                    <input v-model="nuevaFrase" type="text" class="form-control" placeholder="Nueva Frase" />
+                </div>
+                <div class="col-md-5">
+                    <input v-model="nuevoAutor" type="text" class="form-control" placeholder="Autor" />
+                </div>
+                <div class="col-md-2">
+                    <button @click="agregarFrase" class="btn btn-success w-100">Agregar Frase</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de frases -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Frase</th>
+                    <th>Autor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in frases" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                        <div v-if="editIndex === index">
+                            <input v-model="item.frase" class="form-control" />
+                        </div>
+                        <div v-else>
+                            {{ item.frase }}
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="editIndex === index">
+                            <input v-model="item.autor" class="form-control" />
+                        </div>
+                        <div v-else>
+                            {{ item.autor }}
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="editIndex === index">
+                            <button @click="guardarEdicion" class="btn btn-success btn-sm">Guardar</button>
+                            <button @click="cancelarEdicion(index)" class="btn btn-secondary btn-sm">Cancelar</button>
+                        </div>
+                        <div v-else>
+                            <button @click="iniciarEdicion(index)" class="btn btn-primary btn-sm me-2">Editar</button>
+                            <button @click="eliminarFrase(index)" class="btn btn-danger btn-sm">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+    <!-- Incluir Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
